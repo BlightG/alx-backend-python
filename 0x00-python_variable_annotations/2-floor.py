@@ -4,4 +4,5 @@ import math
 
 
 def floor(n: float) -> int:
+    """ a type wraped floor function """
     return math.floor(n)
