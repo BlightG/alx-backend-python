@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """ a module containing the below function """
 from typing import Iterable, Sequence, List, Tuple
 
