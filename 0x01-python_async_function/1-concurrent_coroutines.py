@@ -8,5 +8,4 @@ async def wait_n(n: int, max_delay: int) -> float:
     '''
         a function that runs wait_random n times and return list of wait times
     '''
-    time = await asyncio.gather(*(wait_random(max_delay) for i in range(n)))
-    return time
+    return await asyncio.gather(*(wait_random(max_delay) for i in range(n)))
