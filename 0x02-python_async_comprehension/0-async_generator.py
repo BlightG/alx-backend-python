@@ -9,5 +9,5 @@ async def async_generator() -> int:
         betweeen 1 and 10 for 10 loops
     """
     for i in range(10):
-        yield random.uniform(0, 10)
         await asyncio.sleep(1)
+        yield random.uniform(0, 10)
