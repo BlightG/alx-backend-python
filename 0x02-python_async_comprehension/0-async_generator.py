@@ -2,9 +2,10 @@
 """ a module housing the function async_generator """
 import random
 import asyncio
+from typing import Generator
 
 
-async def async_generator() -> int:
+async def async_generator() -> Generator[int, None, None]:
     """ a function that asyncrounously yields a random number
         betweeen 1 and 10 for 10 loops
     """
