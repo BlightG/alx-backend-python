@@ -9,11 +9,5 @@ async def wait_n(n: int, max_delay: int) -> List[float]:
     '''
         a function that runs wait_random n times and return list of wait times
     '''
-    task = []
-    for i in range(n):
-        task.append(wait_random(max_delay))
-
-    task_times = []
-    for time in asyncio.as_completed(task):
-        task_times.append(await time)
-    return task_times
+    task = [i async for i in async_generator()]
+    return task
