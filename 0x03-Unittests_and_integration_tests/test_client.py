@@ -21,8 +21,19 @@ class TestGithubOrgClient(unittest.TestCase):
         self.assertEqual(organ.org, {"value": 'name'})
 
     @patch('client.get_json')
-    def test_public_repos_url(self, mock_org: Any):
+    def test_public_repos_url(self, mock_get_json: Any):
         """ mocks the org function to test the public repos property """
-        mock_org.return_value = {"repos_url": "name"}
+        mock_get_json.return_value = {"repos_url": "name"}
         organ = GithubOrgClient('google')
         self.assertEqual(organ._public_repos_url, "name")
+
+    @patch('client.get_json')
+    def test_public_repos(self, mock_get_json: Any):
+        """ tests public repos """
+        mock_get_json.return_value = [{"name": "google",
+                                      "license": {"key": "repo_key"}}]
+        with patch("client.GithubOrgClient._public_repos_url") as mock_public_repo:
+            mock_public_repo.return_value = {"name": "google"}
+            organ = GithubOrgClient('google')
+            self.assertEqual(organ.public_repos("repo_key"), ["google"])
+            mock_get_json.assert_called_once()
