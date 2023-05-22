@@ -32,7 +32,7 @@ class TestGithubOrgClient(unittest.TestCase):
         """ tests public repos """
         mock_get_json.return_value = [{"name": "google",
                                       "license": {"key": "repo_key"}}]
-        with patch("client.GithubOrgClient._public_repos_url")
+        with patch("client.GithubOrgClient._public_repos_url")\
         as mock_public_repo:
             mock_public_repo.return_value = {"name": "google"}
             organ = GithubOrgClient('google')
