@@ -48,3 +48,21 @@ class TestGithubOrgClient(unittest.TestCase):
         """ tests the has licince function """
         organ = GithubOrgClient('google')
         self.assertEqual(organ.has_license(repo, license), response)
+
+@parameterized_class([])
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    """ a class to test integration of GithubOrgClient class """
+
+    @classmethod
+    def setUpClass(cls):
+        """ a class method to set up testing variables """
+        cls.patcher = patch("requests.get")
+        cls.mock_get = cls.patcher.start()
+        cls.mock_response = cls.mock_get.return_value
+        cls.mock_response.status_code = 200
+        cls.mock_response.json.return_value = {"data": "some data"}
+
+    @classmethod
+    def tearDownClasss(cls):
+        """ a class ethod to remove testing variables """
+        cls.patcher.stop()
