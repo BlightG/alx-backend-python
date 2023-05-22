@@ -2,7 +2,7 @@
 """ a module for testing the functions of the utils module """
 import unittest
 from parameterized import parameterized
-from typing import List, Mapping, Sequence, Any
+from typing import List, Mapping, Sequence, Any, Dict
 from unittest.mock import patch, MagicMock
 from client import GithubOrgClient
 
@@ -32,9 +32,19 @@ class TestGithubOrgClient(unittest.TestCase):
         """ tests public repos """
         mock_get_json.return_value = [{"name": "google",
                                       "license": {"key": "repo_key"}}]
-        with patch("client.GithubOrgClient._public_repos_url")\
-        as mock_public_repo:
+        with patch("client.GithubOrgClient._public_repos_url")
+        /as mock_public_repo:
             mock_public_repo.return_value = {"name": "google"}
             organ = GithubOrgClient('google')
             self.assertEqual(organ.public_repos("repo_key"), ["google"])
             mock_get_json.assert_called_once()
+
+    @parameterized.expand([
+        ({"license": {"key": "my_license"}}, "my_license", True),
+        ({"license": {"key": "other_license"}}, "my_license", False)
+    ])
+    def test_has_license(self, repo: Dict[str, Dict],
+                         license: str, response: str):
+        """ tests the has licince function """
+        organ = GithubOrgClient('google')
+        self.assertEqual(organ.has_license(repo, license), response)
