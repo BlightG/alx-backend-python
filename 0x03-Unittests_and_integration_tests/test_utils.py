@@ -4,10 +4,12 @@ from typing import List, Mapping, Sequence, Any
 from parameterized import parameterized
 import unittest
 from unittest.mock import patch, MagicMock
-utils = __import__('utils')
-access_nested_map = __import__('utils').access_nested_map
-get_json = __import__('utils').get_json
-memoize = __import__('utils').memoize
+from utils import (
+    get_json,
+    access_nested_map,
+    memoize,
+)
+
 
 
 class TestAccessNestedMap(unittest.TestCase):
