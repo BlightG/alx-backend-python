@@ -49,7 +49,8 @@ class TestGithubOrgClient(unittest.TestCase):
         organ = GithubOrgClient('google')
         self.assertEqual(organ.has_license(repo, license), response)
 
-@parameterized_class([])
+@parameterized_class(('org_payload', 'repos_payload', 'expected_repos', 'apache2_repos'),
+)
 class TestIntegrationGithubOrgClient(unittest.TestCase):
     """ a class to test integration of GithubOrgClient class """
 

@@ -11,7 +11,6 @@ from utils import (
 )
 
 
-
 class TestAccessNestedMap(unittest.TestCase):
     """ a class for testing the access_nested_map funciton """
     @parameterized.expand([
@@ -61,6 +60,7 @@ class TestMemoize(unittest.TestCase):
             @memoize
             def a_property(self):
                 return self.a_method()
+
         @patch('TestClass.a_property')
         def test_mock(self, mock_memo: Any):
             testcase = TestCase()
