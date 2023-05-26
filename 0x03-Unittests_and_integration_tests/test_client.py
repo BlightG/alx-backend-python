@@ -15,21 +15,21 @@ class TestGithubOrgClient(unittest.TestCase):
         ('abc',)
     ])
     @patch('client.get_json')
-    def test_org(self, org_name: str, mock_get_json: Any):
+    def test_org(self, org_name: str, mock_get_json: Any) -> None:
         """ tests the org method """
         organ = GithubOrgClient(org_name)
         mock_get_json.return_value = {"value": 'name'}
         self.assertEqual(organ.org, {"value": 'name'})
 
     @patch('client.get_json')
-    def test_public_repos_url(self, mock_get_json: Any):
+    def test_public_repos_url(self, mock_get_json: Any) -> None:
         """ mocks the org function to test the public repos property """
         mock_get_json.return_value = {"repos_url": "name"}
         organ = GithubOrgClient('google')
         self.assertEqual(organ._public_repos_url, "name")
 
     @patch('client.get_json')
-    def test_public_repos(self, mock_get_json: Any):
+    def test_public_repos(self, mock_get_json: Any) -> None:
         """ tests public repos """
         mock_get_json.return_value = [{"name": "google",
                                       "license": {"key": "repo_key"}}]
@@ -45,7 +45,7 @@ class TestGithubOrgClient(unittest.TestCase):
         ({"license": {"key": "other_license"}}, "my_license", False)
     ])
     def test_has_license(self, repo: Dict[str, Dict],
-                         license: str, response: str):
+                         license: str, response: str) -> None:
         """ tests the has licince function """
         organ = GithubOrgClient('google')
         self.assertEqual(organ.has_license(repo, license), response)
